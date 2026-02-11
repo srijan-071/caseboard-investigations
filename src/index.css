@@ -2,95 +2,58 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+@import url('https://fonts.googleapis.com/css2?family=Special+Elite&family=Courier+Prime:wght@400;700&display=swap');
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --background: 30 15% 12%;
+    --foreground: 40 30% 85%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 30 20% 18%;
+    --card-foreground: 40 30% 85%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 30 15% 15%;
+    --popover-foreground: 40 30% 85%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 0 65% 45%;
+    --primary-foreground: 40 30% 95%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 35 30% 25%;
+    --secondary-foreground: 40 30% 85%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 30 10% 22%;
+    --muted-foreground: 35 15% 55%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 40 50% 55%;
+    --accent-foreground: 30 15% 10%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 30 15% 28%;
+    --input: 30 15% 25%;
+    --ring: 0 65% 45%;
 
-    --radius: 0.5rem;
+    --radius: 0.25rem;
 
-    --sidebar-background: 0 0% 98%;
+    --sidebar-background: 30 15% 10%;
+    --sidebar-foreground: 40 30% 85%;
+    --sidebar-primary: 0 65% 45%;
+    --sidebar-primary-foreground: 40 30% 95%;
+    --sidebar-accent: 35 30% 25%;
+    --sidebar-accent-foreground: 40 30% 85%;
+    --sidebar-border: 30 15% 28%;
+    --sidebar-ring: 0 65% 45%;
 
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
-  }
-
-  .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --cork: 30 25% 16%;
+    --polaroid: 45 20% 90%;
+    --polaroid-foreground: 30 20% 15%;
+    --thread: 0 75% 50%;
+    --stamp: 0 80% 40%;
+    --pin: 0 60% 35%;
+    --glow-high: 0 100% 50%;
+    --glow-medium: 45 100% 55%;
+    --glow-low: 120 60% 40%;
   }
 }
 
@@ -101,5 +64,35 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+    font-family: 'Courier Prime', monospace;
+  }
+}
+
+@layer utilities {
+  .font-detective {
+    font-family: 'Special Elite', cursive;
+  }
+
+  .cork-texture {
+    background-color: hsl(var(--cork));
+    background-image:
+      radial-gradient(ellipse at 20% 50%, hsl(30 20% 20% / 0.4) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 20%, hsl(25 15% 14% / 0.5) 0%, transparent 50%),
+      radial-gradient(ellipse at 50% 80%, hsl(35 20% 18% / 0.3) 0%, transparent 50%),
+      url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
+  }
+
+  .polaroid-shadow {
+    box-shadow:
+      2px 2px 8px hsl(0 0% 0% / 0.4),
+      0 0 1px hsl(0 0% 0% / 0.2);
+  }
+
+  .stamp-text {
+    font-family: 'Special Elite', cursive;
+    color: hsl(var(--stamp));
+    border: 3px solid hsl(var(--stamp));
+    transform: rotate(-12deg);
+    opacity: 0.85;
   }
 }
