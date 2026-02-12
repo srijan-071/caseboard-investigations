@@ -34,26 +34,26 @@ export default function Stopwatch() {
   const pad = (n: number, len = 2) => String(n).padStart(len, '0');
 
   return (
-    <div className="flex items-center gap-3 bg-card border border-border rounded-xl px-4 py-2.5 shadow-sm">
-      <div className="font-mono-timer text-lg font-semibold text-foreground tracking-wider tabular-nums">
+    <div className="flex items-center gap-2 bg-card border border-border rounded px-3 py-2 polaroid-shadow">
+      <div className="font-mono-timer text-base font-bold text-foreground tracking-wider tabular-nums">
         {hours > 0 && <span>{pad(hours)}:</span>}
         <span>{pad(minutes)}</span>
         <span className="text-muted-foreground">:</span>
         <span>{pad(seconds)}</span>
-        <span className="text-muted-foreground text-sm">.{pad(ms)}</span>
+        <span className="text-muted-foreground text-xs">.{pad(ms)}</span>
       </div>
-      <div className="flex gap-1">
+      <div className="flex gap-0.5">
         {!running ? (
-          <Button size="icon" variant="ghost" onClick={start} className="h-8 w-8 text-primary hover:bg-accent">
-            <Play className="w-4 h-4" />
+          <Button size="icon" variant="ghost" onClick={start} className="h-7 w-7 text-primary hover:bg-secondary">
+            <Play className="w-3.5 h-3.5" />
           </Button>
         ) : (
-          <Button size="icon" variant="ghost" onClick={pause} className="h-8 w-8 text-warning hover:bg-accent">
-            <Pause className="w-4 h-4" />
+          <Button size="icon" variant="ghost" onClick={pause} className="h-7 w-7 text-accent hover:bg-secondary">
+            <Pause className="w-3.5 h-3.5" />
           </Button>
         )}
-        <Button size="icon" variant="ghost" onClick={reset} className="h-8 w-8 text-muted-foreground hover:bg-accent">
-          <RotateCcw className="w-4 h-4" />
+        <Button size="icon" variant="ghost" onClick={reset} className="h-7 w-7 text-muted-foreground hover:bg-secondary">
+          <RotateCcw className="w-3.5 h-3.5" />
         </Button>
       </div>
     </div>
