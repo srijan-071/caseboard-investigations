@@ -2,58 +2,89 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Special+Elite&family=Courier+Prime:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
 @layer base {
   :root {
-    --background: 30 15% 12%;
-    --foreground: 40 30% 85%;
+    --background: 220 20% 97%;
+    --foreground: 220 20% 10%;
 
-    --card: 30 20% 18%;
-    --card-foreground: 40 30% 85%;
+    --card: 0 0% 100%;
+    --card-foreground: 220 20% 10%;
 
-    --popover: 30 15% 15%;
-    --popover-foreground: 40 30% 85%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 20% 10%;
 
-    --primary: 0 65% 45%;
-    --primary-foreground: 40 30% 95%;
+    --primary: 250 80% 60%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 35 30% 25%;
-    --secondary-foreground: 40 30% 85%;
+    --secondary: 220 15% 92%;
+    --secondary-foreground: 220 20% 25%;
 
-    --muted: 30 10% 22%;
-    --muted-foreground: 35 15% 55%;
+    --muted: 220 15% 94%;
+    --muted-foreground: 220 10% 45%;
 
-    --accent: 40 50% 55%;
-    --accent-foreground: 30 15% 10%;
+    --accent: 250 60% 95%;
+    --accent-foreground: 250 80% 50%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 30 15% 28%;
-    --input: 30 15% 25%;
-    --ring: 0 65% 45%;
+    --border: 220 15% 88%;
+    --input: 220 15% 88%;
+    --ring: 250 80% 60%;
 
-    --radius: 0.25rem;
+    --radius: 0.75rem;
 
-    --sidebar-background: 30 15% 10%;
-    --sidebar-foreground: 40 30% 85%;
-    --sidebar-primary: 0 65% 45%;
-    --sidebar-primary-foreground: 40 30% 95%;
-    --sidebar-accent: 35 30% 25%;
-    --sidebar-accent-foreground: 40 30% 85%;
-    --sidebar-border: 30 15% 28%;
-    --sidebar-ring: 0 65% 45%;
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 220 20% 10%;
+    --sidebar-primary: 250 80% 60%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 250 60% 95%;
+    --sidebar-accent-foreground: 250 80% 50%;
+    --sidebar-border: 220 15% 88%;
+    --sidebar-ring: 250 80% 60%;
 
-    --cork: 30 25% 16%;
-    --polaroid: 45 20% 90%;
-    --polaroid-foreground: 30 20% 15%;
-    --thread: 0 75% 50%;
-    --stamp: 0 80% 40%;
-    --pin: 0 60% 35%;
-    --glow-high: 0 100% 50%;
-    --glow-medium: 45 100% 55%;
-    --glow-low: 120 60% 40%;
+    --success: 150 60% 45%;
+    --success-foreground: 0 0% 100%;
+    --warning: 40 95% 55%;
+    --warning-foreground: 0 0% 100%;
+    --timer: 250 80% 60%;
+    --timer-foreground: 0 0% 100%;
+  }
+
+  .dark {
+    --background: 220 20% 8%;
+    --foreground: 220 15% 90%;
+
+    --card: 220 20% 12%;
+    --card-foreground: 220 15% 90%;
+
+    --popover: 220 20% 12%;
+    --popover-foreground: 220 15% 90%;
+
+    --primary: 250 80% 65%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 220 15% 18%;
+    --secondary-foreground: 220 15% 80%;
+
+    --muted: 220 15% 16%;
+    --muted-foreground: 220 10% 55%;
+
+    --accent: 250 40% 20%;
+    --accent-foreground: 250 80% 75%;
+
+    --destructive: 0 70% 55%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 220 15% 20%;
+    --input: 220 15% 20%;
+    --ring: 250 80% 65%;
+
+    --success: 150 50% 40%;
+    --warning: 40 80% 50%;
+    --timer: 250 80% 65%;
   }
 }
 
@@ -64,35 +95,12 @@
 
   body {
     @apply bg-background text-foreground;
-    font-family: 'Courier Prime', monospace;
+    font-family: 'Inter', sans-serif;
   }
 }
 
 @layer utilities {
-  .font-detective {
-    font-family: 'Special Elite', cursive;
-  }
-
-  .cork-texture {
-    background-color: hsl(var(--cork));
-    background-image:
-      radial-gradient(ellipse at 20% 50%, hsl(30 20% 20% / 0.4) 0%, transparent 50%),
-      radial-gradient(ellipse at 80% 20%, hsl(25 15% 14% / 0.5) 0%, transparent 50%),
-      radial-gradient(ellipse at 50% 80%, hsl(35 20% 18% / 0.3) 0%, transparent 50%),
-      url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
-  }
-
-  .polaroid-shadow {
-    box-shadow:
-      2px 2px 8px hsl(0 0% 0% / 0.4),
-      0 0 1px hsl(0 0% 0% / 0.2);
-  }
-
-  .stamp-text {
-    font-family: 'Special Elite', cursive;
-    color: hsl(var(--stamp));
-    border: 3px solid hsl(var(--stamp));
-    transform: rotate(-12deg);
-    opacity: 0.85;
+  .font-mono-timer {
+    font-family: 'JetBrains Mono', monospace;
   }
 }
