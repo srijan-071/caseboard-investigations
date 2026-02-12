@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
 import { AnimatePresence } from 'framer-motion';
-import { Plus, ListTodo } from 'lucide-react';
+import { Plus, Shield } from 'lucide-react';
 import { Task } from '@/types/task';
 import { useLocalStorage } from '@/hooks/useLocalStorage';
 import TaskItem from './TaskItem';
@@ -64,15 +64,15 @@ export default function TodoApp() {
   const completedCount = tasks.filter(t => t.completed).length;
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen cork-texture">
       {/* Header */}
-      <div className="sticky top-0 z-50 bg-card/80 backdrop-blur-xl border-b border-border">
-        <div className="max-w-2xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-2.5">
-            <div className="w-9 h-9 rounded-xl bg-primary flex items-center justify-center">
-              <ListTodo className="w-5 h-5 text-primary-foreground" />
-            </div>
-            <h1 className="text-xl font-bold text-foreground">Todo List</h1>
+      <div className="sticky top-0 z-50 bg-background/80 backdrop-blur-sm border-b border-border">
+        <div className="max-w-2xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <Shield className="w-6 h-6 text-primary" />
+            <h1 className="font-detective text-xl sm:text-2xl text-foreground tracking-wide">
+              CASEBOARD
+            </h1>
           </div>
           <Stopwatch />
         </div>
@@ -83,38 +83,38 @@ export default function TodoApp() {
         {/* Stats & Add */}
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <span className="text-sm text-muted-foreground">
-              <span className="font-semibold text-foreground">{tasks.length}</span> tasks
+            <span className="text-sm font-detective text-muted-foreground">
+              <span className="font-bold text-foreground">{tasks.length}</span> cases
             </span>
-            <span className="text-sm text-muted-foreground">
-              <span className="font-semibold text-primary">{completedCount}</span> done
+            <span className="text-sm font-detective text-muted-foreground">
+              <span className="font-bold text-primary">{completedCount}</span> closed
             </span>
           </div>
-          <Button onClick={openNewModal} size="sm" className="gap-1.5 rounded-xl">
+          <Button onClick={openNewModal} size="sm" className="gap-1.5 font-detective">
             <Plus className="w-4 h-4" />
             New Task
           </Button>
         </div>
 
         {/* Filter Tabs */}
-        <div className="flex gap-1 bg-secondary/50 p-1 rounded-xl">
+        <div className="flex gap-1 bg-secondary/50 p-1 rounded">
           {(['all', 'active', 'completed'] as const).map(f => (
             <button
               key={f}
               onClick={() => setFilter(f)}
-              className={`flex-1 py-2 text-xs font-semibold rounded-lg capitalize transition-all ${
+              className={`flex-1 py-2 text-xs font-detective tracking-wider rounded capitalize transition-all ${
                 filter === f
                   ? 'bg-card text-foreground shadow-sm'
                   : 'text-muted-foreground hover:text-foreground'
               }`}
             >
-              {f}
+              {f === 'active' ? '🔍 Active' : f === 'completed' ? '✅ Closed' : '📋 All'}
             </button>
           ))}
         </div>
 
         {/* Task List */}
-        <div className="space-y-2">
+        <div className="space-y-3">
           <AnimatePresence mode="popLayout">
             {filteredTasks.map(task => (
               <TaskItem
@@ -128,10 +128,9 @@ export default function TodoApp() {
           </AnimatePresence>
 
           {filteredTasks.length === 0 && (
-            <div className="text-center py-16 text-muted-foreground">
-              <ListTodo className="w-12 h-12 mx-auto mb-3 opacity-30" />
-              <p className="text-lg font-medium">No tasks yet</p>
-              <p className="text-sm mt-1">Click "New Task" to get started</p>
+            <div className="text-center py-16 text-muted-foreground font-detective">
+              <p className="text-2xl mb-2">No open cases</p>
+              <p className="text-sm">Click "New Task" to start an investigation</p>
             </div>
           )}
         </div>
