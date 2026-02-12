@@ -1,5 +1,5 @@
-import CaseBoard from '@/components/caseboard/CaseBoard';
+import TodoApp from '@/components/todo/TodoApp';
 
-const Index = () => <CaseBoard />;
+const Index = () => <TodoApp />;
 
 export default Index;
