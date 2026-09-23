@@ -69,6 +69,9 @@ export default function AddTaskModal({ open, onClose, onSave, editTask }: AddTas
           exit={{ opacity: 0 }}
           className="fixed inset-0 z-[100] flex items-center justify-center bg-black/70 p-4"
           onClick={onClose}
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="case-file-title"
         >
           <motion.div
             initial={{ scale: 0.9, y: 30, opacity: 0 }}
@@ -80,31 +83,35 @@ export default function AddTaskModal({ open, onClose, onSave, editTask }: AddTas
           >
             {/* Header */}
             <div className="bg-secondary px-6 py-4 border-b border-border flex items-center gap-3">
-              <FolderOpen className="w-5 h-5 text-primary" />
-              <h2 className="font-detective text-lg text-foreground">
+              <FolderOpen className="w-5 h-5 text-primary" aria-hidden="true" />
+              <h2 id="case-file-title" className="font-detective text-lg text-foreground">
                 {editTask ? 'EDIT CASE FILE' : 'NEW CASE FILE'}
               </h2>
             </div>
 
             <form onSubmit={handleSubmit} className="p-6 space-y-4">
               <div>
-                <label className="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-1 block">
+                <label htmlFor="case-title" className="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-1 block">
                   Case Title *
                 </label>
                 <Input
+                  id="case-title"
                   value={title}
                   onChange={(e) => { setTitle(e.target.value); setError(''); }}
                   placeholder="Enter case title..."
+                  aria-invalid={Boolean(error)}
+                  aria-describedby={error ? 'case-title-error' : undefined}
                   className="bg-muted border-border text-foreground"
                 />
-                {error && <p className="text-destructive text-xs mt-1">{error}</p>}
+                {error && <p id="case-title-error" role="alert" className="text-destructive text-xs mt-1">{error}</p>}
               </div>
 
               <div>
-                <label className="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-1 block">
+                <label htmlFor="case-description" className="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-1 block">
                   Description
                 </label>
                 <Textarea
+                  id="case-description"
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
                   placeholder="Case details..."
@@ -120,13 +127,14 @@ export default function AddTaskModal({ open, onClose, onSave, editTask }: AddTas
                 <Popover>
                   <PopoverTrigger asChild>
                     <Button
+                      type="button"
                       variant="outline"
                       className={cn(
                         'w-full justify-start text-left bg-muted border-border',
                         !dueDate && 'text-muted-foreground'
                       )}
                     >
-                      <CalendarIcon className="mr-2 h-4 w-4" />
+                      <CalendarIcon className="mr-2 h-4 w-4" aria-hidden="true" />
                       {dueDate ? format(dueDate, 'PPP') : 'Pick a date'}
                     </Button>
                   </PopoverTrigger>
@@ -142,16 +150,17 @@ export default function AddTaskModal({ open, onClose, onSave, editTask }: AddTas
                 </Popover>
               </div>
 
-              <div>
-                <label className="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-2 block">
+              <fieldset>
+                <legend className="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-2 block">
                   Priority Level
-                </label>
+                </legend>
                 <div className="flex gap-2">
                   {priorities.map(p => (
                     <button
                       key={p.value}
                       type="button"
                       onClick={() => setPriority(p.value)}
+                      aria-pressed={priority === p.value}
                       className={cn(
                         'flex-1 py-2 text-xs font-bold rounded border transition-all uppercase tracking-wider',
                         priority === p.value
@@ -163,7 +172,7 @@ export default function AddTaskModal({ open, onClose, onSave, editTask }: AddTas
                     </button>
                   ))}
                 </div>
-              </div>
+              </fieldset>
 
               <div className="flex gap-3 pt-2">
                 <Button type="button" variant="outline" onClick={onClose} className="flex-1">
