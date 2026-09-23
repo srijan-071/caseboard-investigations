@@ -69,7 +69,7 @@ export default function TodoApp() {
       <div className="sticky top-0 z-50 bg-background/80 backdrop-blur-sm border-b border-border">
         <div className="max-w-2xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Shield className="w-6 h-6 text-primary" />
+            <Shield className="w-6 h-6 text-primary" aria-hidden="true" />
             <h1 className="font-detective text-xl sm:text-2xl text-foreground tracking-wide">
               CASEBOARD
             </h1>
@@ -82,7 +82,7 @@ export default function TodoApp() {
       <div className="max-w-2xl mx-auto px-4 sm:px-6 py-6 space-y-5">
         {/* Stats & Add */}
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-4" aria-live="polite">
             <span className="text-sm font-detective text-muted-foreground">
               <span className="font-bold text-foreground">{tasks.length}</span> cases
             </span>
@@ -91,17 +91,19 @@ export default function TodoApp() {
             </span>
           </div>
           <Button onClick={openNewModal} size="sm" className="gap-1.5 font-detective">
-            <Plus className="w-4 h-4" />
+            <Plus className="w-4 h-4" aria-hidden="true" />
             New Task
           </Button>
         </div>
 
         {/* Filter Tabs */}
-        <div className="flex gap-1 bg-secondary/50 p-1 rounded">
+        <div className="flex gap-1 bg-secondary/50 p-1 rounded" role="group" aria-label="Filter cases">
           {(['all', 'active', 'completed'] as const).map(f => (
             <button
               key={f}
+              type="button"
               onClick={() => setFilter(f)}
+              aria-pressed={filter === f}
               className={`flex-1 py-2 text-xs font-detective tracking-wider rounded capitalize transition-all ${
                 filter === f
                   ? 'bg-card text-foreground shadow-sm'
@@ -114,7 +116,7 @@ export default function TodoApp() {
         </div>
 
         {/* Task List */}
-        <div className="space-y-3">
+        <div className="space-y-3" aria-live="polite">
           <AnimatePresence mode="popLayout">
             {filteredTasks.map(task => (
               <TaskItem
