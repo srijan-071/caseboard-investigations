@@ -39,16 +39,19 @@ export default function TaskItem({ task, onEdit, onDelete, onToggleComplete }: T
       style={{ boxShadow: task.priority === 'high' && !task.completed ? priority.glow : undefined }}
     >
       {/* Pin dot */}
-      <div className="absolute -top-1.5 left-4 w-3 h-3 rounded-full bg-gradient-to-br from-red-700 to-red-900 border border-red-950 shadow-sm" />
+      <div className="absolute -top-1.5 left-4 w-3 h-3 rounded-full bg-gradient-to-br from-red-700 to-red-900 border border-red-950 shadow-sm" aria-hidden="true" />
 
       <button
+        type="button"
         onClick={() => onToggleComplete(task.id)}
+        aria-pressed={task.completed}
+        aria-label={task.completed ? `Reopen case: ${task.title}` : `Close case: ${task.title}`}
         className="mt-0.5 flex-shrink-0 transition-colors"
       >
         {task.completed ? (
-          <CheckCircle2 className="w-5 h-5 text-red-700" />
+          <CheckCircle2 className="w-5 h-5 text-red-700" aria-hidden="true" />
         ) : (
-          <Circle className="w-5 h-5 text-[hsl(30,15%,45%)] hover:text-red-700" />
+          <Circle className="w-5 h-5 text-[hsl(30,15%,45%)] hover:text-red-700" aria-hidden="true" />
         )}
       </button>
 
@@ -68,7 +71,7 @@ export default function TaskItem({ task, onEdit, onDelete, onToggleComplete }: T
           </span>
           {task.dueDate && (
             <span className="text-[10px] text-[hsl(30,20%,40%)] flex items-center gap-1">
-              <Clock className="w-3 h-3" />
+              <Clock className="w-3 h-3" aria-hidden="true" />
               {format(parseISO(task.dueDate), 'MMM d')}
             </span>
           )}
@@ -103,16 +106,20 @@ export default function TaskItem({ task, onEdit, onDelete, onToggleComplete }: T
             className="absolute top-2 right-2 flex gap-1"
           >
             <button
+              type="button"
               onClick={() => onEdit(task)}
+              aria-label={`Edit case: ${task.title}`}
               className="p-1 rounded bg-blue-800/80 hover:bg-blue-700 text-blue-200 transition-colors"
             >
-              <Pencil className="w-3.5 h-3.5" />
+              <Pencil className="w-3.5 h-3.5" aria-hidden="true" />
             </button>
             <button
+              type="button"
               onClick={() => onDelete(task.id)}
+              aria-label={`Delete case: ${task.title}`}
               className="p-1 rounded bg-red-800/80 hover:bg-red-700 text-red-200 transition-colors"
             >
-              <Trash2 className="w-3.5 h-3.5" />
+              <Trash2 className="w-3.5 h-3.5" aria-hidden="true" />
             </button>
           </motion.div>
         )}
