@@ -20,17 +20,14 @@ export default function TodoApp() {
 
   const handleSave = useCallback((data: Omit<Task, 'id' | 'createdAt' | 'completed'>) => {
     if (editingTask) {
-      setTasks(prev => prev.map(t =>
-        t.id === editingTask.id ? { ...t, ...data } : t
-      ));
+      setTasks(prev => prev.map(t => t.id === editingTask.id ? { ...t, ...data } : t));
     } else {
-      const newTask: Task = {
+      setTasks(prev => [{
         ...data,
         id: generateId(),
         completed: false,
         createdAt: new Date().toISOString(),
-      };
-      setTasks(prev => [newTask, ...prev]);
+      }, ...prev]);
     }
     setEditingTask(null);
   }, [editingTask, setTasks]);
@@ -40,9 +37,7 @@ export default function TodoApp() {
   }, [setTasks]);
 
   const handleToggleComplete = useCallback((id: string) => {
-    setTasks(prev => prev.map(t =>
-      t.id === id ? { ...t, completed: !t.completed } : t
-    ));
+    setTasks(prev => prev.map(t => t.id === id ? { ...t, completed: !t.completed } : t));
   }, [setTasks]);
 
   const handleEdit = useCallback((task: Task) => {
@@ -62,25 +57,27 @@ export default function TodoApp() {
   });
 
   const completedCount = tasks.filter(t => t.completed).length;
+  const activeCount = tasks.length - completedCount;
+
+  const filterLabels = {
+    all: 'All (' + tasks.length + ')',
+    active: 'Active (' + activeCount + ')',
+    completed: 'Closed (' + completedCount + ')',
+  } as const;
 
   return (
     <div className="min-h-screen cork-texture">
-      {/* Header */}
       <div className="sticky top-0 z-50 bg-background/80 backdrop-blur-sm border-b border-border">
         <div className="max-w-2xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Shield className="w-6 h-6 text-primary" aria-hidden="true" />
-            <h1 className="font-detective text-xl sm:text-2xl text-foreground tracking-wide">
-              CASEBOARD
-            </h1>
+            <h1 className="font-detective text-xl sm:text-2xl text-foreground tracking-wide">CASEBOARD</h1>
           </div>
           <Stopwatch />
         </div>
       </div>
 
-      {/* Content */}
       <div className="max-w-2xl mx-auto px-4 sm:px-6 py-6 space-y-5">
-        {/* Stats & Add */}
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4" aria-live="polite">
             <span className="text-sm font-detective text-muted-foreground">
@@ -96,7 +93,6 @@ export default function TodoApp() {
           </Button>
         </div>
 
-        {/* Filter Tabs */}
         <div className="flex gap-1 bg-secondary/50 p-1 rounded" role="group" aria-label="Filter cases">
           {(['all', 'active', 'completed'] as const).map(f => (
             <button
@@ -104,34 +100,28 @@ export default function TodoApp() {
               type="button"
               onClick={() => setFilter(f)}
               aria-pressed={filter === f}
+              aria-label={filterLabels[f] + ' filter'}
               className={`flex-1 py-2 text-xs font-detective tracking-wider rounded capitalize transition-all ${
-                filter === f
-                  ? 'bg-card text-foreground shadow-sm'
-                  : 'text-muted-foreground hover:text-foreground'
+                filter === f ? 'bg-card text-foreground shadow-sm' : 'text-muted-foreground hover:text-foreground'
               }`}
             >
-              {f === 'active' ? '🔍 Active' : f === 'completed' ? '✅ Closed' : '📋 All'}
+              {filterLabels[f]}
             </button>
           ))}
         </div>
 
-        {/* Task List */}
         <div className="space-y-3" aria-live="polite">
           <AnimatePresence mode="popLayout">
             {filteredTasks.map(task => (
-              <TaskItem
-                key={task.id}
-                task={task}
-                onEdit={handleEdit}
-                onDelete={handleDelete}
-                onToggleComplete={handleToggleComplete}
-              />
+              <TaskItem key={task.id} task={task} onEdit={handleEdit} onDelete={handleDelete} onToggleComplete={handleToggleComplete} />
             ))}
           </AnimatePresence>
 
           {filteredTasks.length === 0 && (
             <div className="text-center py-16 text-muted-foreground font-detective">
-              <p className="text-2xl mb-2">No open cases</p>
+              <p className="text-2xl mb-2">
+                No {filter === 'all' ? 'cases' : filter === 'active' ? 'active cases' : 'closed cases'}
+              </p>
               <p className="text-sm">Click "New Task" to start an investigation</p>
             </div>
           )}
