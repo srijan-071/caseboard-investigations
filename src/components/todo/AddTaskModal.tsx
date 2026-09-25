@@ -25,6 +25,15 @@ export default function AddTaskModal({ open, onClose, onSave, editTask }: AddTas
   const [error, setError] = useState('');
 
   useEffect(() => {
+    if (!open) return;
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') onClose();
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [open, onClose]);
+
+  useEffect(() => {
     if (editTask) {
       setTitle(editTask.title);
       setDescription(editTask.description);
