@@ -50,12 +50,17 @@ export default function AddTaskModal({ open, onClose, onSave, editTask }: AddTas
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!title.trim()) {
+    const trimmedTitle = title.trim();
+    if (!trimmedTitle) {
       setError('Task title is required');
       return;
     }
+    if (trimmedTitle.length < 3) {
+      setError('Task title must be at least 3 characters');
+      return;
+    }
     onSave({
-      title: title.trim(),
+      title: trimmedTitle,
       description: description.trim(),
       dueDate: dueDate ? dueDate.toISOString() : null,
       priority,
