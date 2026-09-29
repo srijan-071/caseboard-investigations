@@ -59,6 +59,10 @@ export default function AddTaskModal({ open, onClose, onSave, editTask }: AddTas
       setError('Task title must be at least 3 characters');
       return;
     }
+    if (trimmedTitle.length > 120) {
+      setError('Task title must be 120 characters or fewer');
+      return;
+    }
     onSave({
       title: trimmedTitle,
       description: description.trim(),
