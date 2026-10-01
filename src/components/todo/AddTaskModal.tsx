@@ -9,6 +9,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Calendar } from '@/components/ui/calendar';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { cn } from '@/lib/utils';
+import { validateCaseTitle } from '@/lib/validation';
 
 interface AddTaskModalProps {
   open: boolean;
@@ -51,16 +52,9 @@ export default function AddTaskModal({ open, onClose, onSave, editTask }: AddTas
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const trimmedTitle = title.trim();
-    if (!trimmedTitle) {
-      setError('Task title is required');
-      return;
-    }
-    if (trimmedTitle.length < 3) {
-      setError('Task title must be at least 3 characters');
-      return;
-    }
-    if (trimmedTitle.length > 120) {
-      setError('Task title must be 120 characters or fewer');
+    const validationError = validateCaseTitle(title);
+    if (validationError) {
+      setError(validationError);
       return;
     }
     onSave({
